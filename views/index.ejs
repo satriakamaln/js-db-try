@@ -22,6 +22,7 @@
                     <th scope="col">id</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Kelas</th>
+                    <th scope="col">Option</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,10 @@
                         </td>
                         <td>
                             <%= user.kelas %>
+                        </td>
+                        <td>
+                            <a href="/hapus/<%= user.id %>" class="btn btn-danger">Hapus</a>
+                            <a href="/edit/<%= user.id %>" class="btn btn-warning">Edit</a>
                         </td>
                     </tr>
                     <% } %>

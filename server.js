@@ -42,4 +42,39 @@ db.connect((err) => {
             res.redirect("/");
         });
     });
+
+    // Route untuk menampilkan form edit data berdasarkan id
+    app.get("/edit/:id", (req, res) => {
+        const id = req.params.id;
+        const selectSql = `SELECT * FROM user WHERE id = ${id}`;
+        db.query(selectSql, (err, result) => {
+            if (err) throw err;
+            const user = JSON.parse(JSON.stringify(result));
+            res.render("edit", { user: user[0], title: "EDIT DATA" });
+        });
+    });
+
+    // Route untuk mengupdate data berdasarkan id
+    app.post("/edit/:id", (req, res) => {
+        const id = req.params.id;
+        const nama = req.body.nama;
+        const kelas = req.body.kelas;
+        const updateSql = `UPDATE user SET nama = '${nama}', kelas = '${kelas}' WHERE id = ${id}`;
+        db.query(updateSql, (err, result) => {
+            if (err) throw err;
+            console.log("Data berhasil diupdate");
+            res.redirect("/");
+        });
+    });
+
+    // Route untuk menghapus data berdasarkan id
+    app.get("/hapus/:id", (req, res) => {
+        const id = req.params.id;
+        const deleteSql = `DELETE FROM user WHERE id = ${id}`;
+        db.query(deleteSql, (err, result) => {
+            if (err) throw err;
+            console.log("Data berhasil dihapus");
+            res.redirect("/");
+        });
+    });
 });
