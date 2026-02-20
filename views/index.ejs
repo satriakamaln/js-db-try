@@ -38,7 +38,7 @@
                             <%= user.kelas %>
                         </td>
                         <td>
-                            <a href="/hapus/<%= user.id %>" class="btn btn-danger" id="hapus-btn">Hapus</a>
+                            <a href="/hapus/<%= user.id %>" class="btn btn-danger hapus-btn">Hapus</a>
                             <a href="/edit/<%= user.id %>" class="btn btn-warning">Edit</a>
                         </td>
                     </tr>
@@ -70,13 +70,19 @@
         crossorigin="anonymous"></script>
 
     <script>
-        const hapusBtn = document.getElementById('hapus-btn');
-        hapusBtn.addEventListener('click', function (event) {
-            event.preventDefault(); // Mencegah aksi default (navigasi)
-            const confirmDelete = confirm('Apakah Anda yakin ingin menghapus data ini?');
-            if (confirmDelete) {
-                window.location.href = this.href; // Lanjutkan ke URL jika pengguna mengkonfirmasi
-            }
+        // Ambil SEMUA tombol dengan class 'hapus-btn'
+        const hapusButtons = document.querySelectorAll('.hapus-btn');
+
+        // Loop melalui setiap tombol dan tambahkan event listener
+        hapusButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault(); // Mencegah link langsung diakses
+                const confirmDelete = confirm('Apakah Anda yakin ingin menghapus data ini?');
+                if (confirmDelete) {
+                    // Jika "OK", lanjutkan ke URL tombol yang diklik
+                    window.location.href = this.href;
+                }
+            });
         });
     </script>
 </body>
